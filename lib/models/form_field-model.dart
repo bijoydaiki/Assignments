@@ -61,13 +61,11 @@ class FormProvider with ChangeNotifier {
       );
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonData = jsonDecode(response.body);
-        // Access fields under 'json_response' and 'attributes'
         if (jsonData['json_response'] != null && jsonData['json_response']['attributes'] is List) {
           final List<dynamic> fieldsData = jsonData['json_response']['attributes'];
           _fields = fieldsData.map((json) => FormFieldModel.fromJson(json)).toList();
           _values = {};
 
-          // Initialize values for each field
           for (var field in _fields) {
             if (field.type == 'checkbox' || field.type == 'checkboxes') {
               _values[field.key] = <String>[];
