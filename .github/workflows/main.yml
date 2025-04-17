@@ -13,8 +13,10 @@ on:
 
 jobs:
   build:
-    name: Build & Release
     runs-on: macos-latest
+    permissions:
+      contents: write  # Allows pushing release assets
+      id-token: write  # Required for GitHub App authentication (if used)
 
     steps:
       # Checkout the code
@@ -60,4 +62,4 @@ jobs:
             build/app/outputs/apk/release/*.apk,
             build/ios/iphoneos/app.ipa
           tag: v1.2.${{ github.run_number }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.ASSIGNMENT }}
